@@ -145,6 +145,7 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+/*勝敗を見定めるFunc*/
 function calculateWinner(squares) {
   const lines = [
     [0, 1, 2],
