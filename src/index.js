@@ -55,14 +55,14 @@ class Board extends React.Component {
   }
 }
 
-//
+
 class Game extends React.Component {
   /*Board にある state をップレベルの Game コンポーネントにリフトアップ*/
   constructor(props){
   	super(props);
   	this.state = {
       history: [{
-        squares: Array(9).fill(null),/*初期化*/
+        squares: Array(9).fill(null),/*初期化+空の配列作成*/
       }],
       stepNumber: 0,
       xIsNext: true,
@@ -71,14 +71,14 @@ class Game extends React.Component {
 
   handleClick(i) {
   	const history = this.state.history.slice(0, this.state.stepNumber + 1);
-  	const current = history[history.length - 1]
+  	const current = history[history.length - 1] /*?*/
   	const squares = current.squares.slice();
     if (calculateWinner(squares) || squares[i]){
       return;
     }
     squares[i] = this.state.xIsNext ? 'x' : 'o';
     this.setState({
-      history: history.concat([{
+      history: history.concat([{/*新しい履歴エントリを history に追加.concathは配列へ追加するメソッド。*/
         squares: squares,/*現在の値を代入？これは何をしているのか。なぜ53行目はthis.state.squaresはだめ？*/
       }]),
       stepNumber: history.length,
@@ -89,7 +89,7 @@ class Game extends React.Component {
   jumpTo(step) {
     this.setState({
       stepNumber: step,
-      xIsNext: (step % 2) === 0
+      xIsNext: (step % 2) === 0/* true値の設定*/
     });
   }
 
@@ -100,7 +100,7 @@ class Game extends React.Component {
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
-    const moves = history.map((step, move) => {
+    const moves = history.map((step, move) => {/*stepはhistory配列の要素でmoveはindex.*/
       const desc = move ?
         'Go to move #' + move :
         'Go to game start';
